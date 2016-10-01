@@ -7,7 +7,7 @@ Features
   Image -> (HTTP POST multipart) -> API Gateway -> AWS Lambda -> S3
     |                                                    |
     --------<---------- Client <- { image_id: '158g2'} <-
-2) Define the transform and register it
+2) Define the <Metamorphosis> and register it
   Such as
   small_thumbnail = {
     name: 'smt',
