@@ -4,8 +4,6 @@ abstract class Metamorphosis {
   abstract metamorphose(input: Jimp) : Promise<Jimp>;
 }
 
-
-
 /// Crop
 interface CropOptions {
   x: number;
@@ -54,9 +52,49 @@ class BlurMetamorphosis extends Metamorphosis {
   }
 }
 
+interface RotateOptions {
+  degree: number;
+}
+
+class RotateMetamorphosis extends Metamorphosis {
+  constructor(private options: RotateOptions) {
+    super();
+  }
+
+  metamorphose(input: Jimp) : Promise<Jimp> {
+    return new Promise<Jimp>((resolve, reject) => {
+      input.rotate(this.options.degree, (err, result) => {
+        if (err) reject(err);
+        else resolve(result);
+      });
+    });
+  }
+}
+
+interface CompoundOptions {
+  metamorphosisSequnece: Metamorphosis[]
+}
+class CompoundMetamorphosis extends Metamorphosis {
+  constructor(private options: CompoundOptions) {
+    super();
+  }
+
+  metamorphose(input: Jimp) : Promise<Jimp> {
+    return new Promise<Jimp>((resolve, reject) => {
+      let result = Promise.resolve(input);
+      this.options.metamorphosisSequnece.forEach((m) => {
+        result = result.then((transformed) => m.metamorphose(transformed));
+      });
+      return result;
+    });
+  }
+}
+
 //
 export {
   Metamorphosis,
   CropMetamorphosis,
-  BlurMetamorphosis
+  BlurMetamorphosis,
+  RotateMetamorphosis,
+  CompoundMetamorphosis,
 };
