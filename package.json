@@ -8,10 +8,13 @@
     "jimp": "^0.2.27",
     "serverless": "^1.0.0-rc.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "typescript": "^2.0.3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "postinstall": "typings install"
   },
   "author": "",
   "license": "ISC"
