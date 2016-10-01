@@ -4,6 +4,7 @@
   "description": "Serverless On-demand Image Transform Tool",
   "main": "index.js",
   "dependencies": {
+    "jimp": "^0.2.27",
     "serverless": "^1.0.0-rc.2"
   },
   "devDependencies": {},
