@@ -27,5 +27,10 @@ Features
     ]
   }
 
+  in the long term, we should store those on database (Dynamo DB maybe?)
+  and be able to manage those on web console OR via API,
+  but in short term, we'll put those into the deployment package such as metamorphosis/small_thumbnail.json
+  and deploy it to lambda with the other code.
+
 3) User can get that image via HTTP call,
   http://alchemist.test.com/images/158g2/smt
