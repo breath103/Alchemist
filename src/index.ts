@@ -1,37 +1,20 @@
-import { Metamorphosis, CropMetamorphosis } from './metamorphosis';
-import * as Jimp from 'jimp';
+import ImageHelper from './image_helper';
+import MetamorphosisHelper from './metamorphosis_helper';
 
-function readJimp(path) : Promise<Jimp> {
-  return new Promise((resolve, reject) => {
-    Jimp.read(path, (err, img) => {
-      if (err) reject(err);
-      else resolve(img);
-    });
-  });
-}
-
-function writeJimp(image: Jimp, path: string) : Promise<Jimp> {
-  return new Promise((resolve, reject) => {
-    image.write(path, (err, result) => {
-      if (err) reject(err);
-      else resolve(result);
-    });
-  })}
-
-function metamorphose(image: Jimp, metamorphosis: Metamorphosis[]) : Promise<Jimp> {
-  let result = Promise.resolve(image);
-  metamorphosises.forEach((m) => {
-    result = result.then((transformed) => m.metamorphose(transformed));
-  });
-  return result;
-}
+import { Metamorphosis, CropMetamorphosis, BlurMetamorphosis } from './metamorphosis';
 
 const metamorphosises = [
-  new CropMetamorphosis({x: 200, y: 200, width: 100, height: 100})
+  new CropMetamorphosis({x: 50, y: 50, width: 400, height: 400}),
+  new BlurMetamorphosis({radius: 10}),
 ];
 
-
-
-readJimp("./sample_images/Lea_Seydoux.jpg")
-  .then(image => metamorphose(image, metamorphosises))
-  .then(image => writeJimp(image, "./Lea_Seydoux-result.jpg"));
+const SAVE_PATH = "./sample_images/Lea_Seydoux.jpg";
+const RESULT_PATH = "./Lea_Seydoux-result.jpg";
+ImageHelper.readJimp(SAVE_PATH)
+  .then(image =>
+    MetamorphosisHelper.metamorphose(image, metamorphosises)
+  ).then(image =>
+    ImageHelper.writeJimp(image, RESULT_PATH)
+  ).then(() => {
+    console.log(`===============================\n check ${RESULT_PATH} for result\n\n`);
+  })

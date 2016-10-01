@@ -34,7 +34,29 @@ class CropMetamorphosis extends Metamorphosis {
     });
   }
 }
+
+interface BlurOptions {
+  radius: number;
+}
+class BlurMetamorphosis extends Metamorphosis {
+  constructor(private options: BlurOptions) {
+    super();
+  }
+
+  metamorphose(input: Jimp) : Promise<Jimp> {
+    return new Promise<Jimp>((resolve, reject) => {
+      input.blur(this.options.radius, (err, result) => {
+          if (err) reject(err);
+          else resolve(result);
+        }
+      );
+    });
+  }
+}
+
+//
 export {
   Metamorphosis,
-  CropMetamorphosis
+  CropMetamorphosis,
+  BlurMetamorphosis
 };
