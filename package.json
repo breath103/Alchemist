@@ -1,0 +1,16 @@
+{
+  "name": "kurt_lee",
+  "version": "0.0.1",
+  "description": "Serverless On-demand Image Transform Tool",
+  "main": "index.js",
+  "dependencies": {
+    "serverless": "^1.0.0-rc.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
