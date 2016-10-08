@@ -2,6 +2,9 @@
 logs
 *.log
 npm-debug.log*
+.DS_Store
+
+.env
 
 # Runtime data
 pids
@@ -44,3 +47,4 @@ jspm_packages
 *.tgz
 
 dst
+dst.zip
