@@ -12,9 +12,11 @@ export default class Compound extends Metamorphosis {
 
   metamorphose(input: Jimp) : Promise<Jimp> {
     let result = Promise.resolve(input);
+
     this.metamorphosisSequnece.forEach((m) => {
       result = result.then((transformed) => m.metamorphose(transformed));
     });
+
     return result;
   }
 }

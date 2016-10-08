@@ -1,35 +1,7 @@
 {
-   "class": "Compound",
-   "properties": {
-       "metamorphosisSequnece": [{
-           "class": "Crop",
-           "properties": {
-               "x": 150,
-               "y": 150,
-               "width": 400,
-               "height": 400
-           }
-       }, {
-           "class": "Blur",
-           "properties": {
-               "radius": 10
-           }
-       },  {
-          "class": "Compound",
-          "properties": {
-              "metamorphosisSequnece": [{
-                  "class": "Rotate",
-                  "properties": {
-                      "degree": 90
-                  }
-              }, {
-                  "class": "Blur",
-                  "properties": {
-                      "radius": 10
-                  }
-              }]
-          }
-       }
-]
-   }
+    "class": "Resize",
+    "properties": {
+        "width": 200,
+        "height": 200
+    }
 }
