@@ -17,6 +17,6 @@ function build() {
 
 if (require.main === module) {
   build();
-else {
+} else {
   module.exports = build;
 }

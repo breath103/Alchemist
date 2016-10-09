@@ -5,11 +5,11 @@
   "main": "index.js",
   "dependencies": {
     "aws-sdk": "^2.6.6",
-    "jimp": "^0.2.27",
-    "serverless": "^1.0.0-rc.2"
+    "jimp": "^0.2.27"
   },
   "devDependencies": {
-    "typescript": "^2.0.3"
+    "typescript": "^2.0.3",
+    "serverless": "^1.0.0-rc.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

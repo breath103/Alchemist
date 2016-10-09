@@ -2,7 +2,11 @@ const exec = require('child_process').exec;
 
 function pack() {
   exec(`
-    zip -r dst.zip dst **
+    (rm dst.zip || true) &&
+    cp package.json dst/package.json &&
+    cd dst &&
+    npm install --production &&
+    zip -r ../dst.zip . **
   `, {
     maxBuffer: 1024 * 1024 * 20
   }, (error, stdout, stderr) => {
