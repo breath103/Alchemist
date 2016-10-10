@@ -4,7 +4,7 @@
   "description": "Serverless On-demand Image Transform Tool",
   "main": "index.js",
   "dependencies": {
-    "aws-sdk": "^2.6.6",
+    "aws-sdk": "^2.6.7",
     "jimp": "^0.2.27"
   },
   "devDependencies": {

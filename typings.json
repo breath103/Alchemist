@@ -3,6 +3,7 @@
     "jimp": "registry:npm/jimp#0.2.20+20160526180746"
   },
   "globalDependencies": {
+    "aws-sdk": "registry:dt/aws-sdk#0.0.0+20160927141703",
     "node": "registry:dt/node#6.0.0+20160928143418"
   }
 }

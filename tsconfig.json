@@ -14,7 +14,10 @@
         "noLib": false,
         "preserveConstEnums": true,
         "suppressImplicitAnyIndexErrors": true,
-        "outDir": "dst"
+        "outDir": "dst",
+        "rootDirs": [
+          "node_modules"
+        ]
     },
     "exclude": [
         "node_modules",

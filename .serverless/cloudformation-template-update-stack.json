@@ -59,7 +59,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "1476006454624-2016-10-09T09:47:34.624Z/dst.zip"
+          "S3Key": "1476019178616-2016-10-09T13:19:38.616Z/dst.zip"
         },
         "FunctionName": "alchemist-dev-metamorphosis",
         "Handler": "lambda_handler.default",

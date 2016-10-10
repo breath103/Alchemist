@@ -45,7 +45,7 @@ package:
 
 functions:
   metamorphosis:
-    handler: lambda_handler.default
+    handler: lambda_handlers/metamorphose.default
 
 #    you can add any of the following events
 #    events:
