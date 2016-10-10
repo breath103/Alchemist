@@ -46,6 +46,21 @@ package:
 functions:
   metamorphosis:
     handler: lambda_handlers/metamorphose.default
+    events:
+      - http:
+          path: metamorphose
+          method: get
+          integration: lambda
+  upload:
+    handler: lambda_handlers/upload.default
+    events:
+      - http:
+          path: upload
+          method: post
+          integration: lambda
+          request:
+            template:
+              multipart/form-data: '{ "body" : "\"$input.body\"" }'
 
 #    you can add any of the following events
 #    events:
