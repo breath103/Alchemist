@@ -1,18 +1,18 @@
 import * as Jimp from 'jimp';
 import Metamorphosis from '../metamorphosis';
 
-export default class Blur extends Metamorphosis {
-  constructor(private radius: number) {
+export default class Rotate extends Metamorphosis {
+  constructor(private degree: number) {
     super();
   }
 
-  static fromJSON(o) {
-    return new this(o.radius);
+  static fromJSON(o: any) {
+    return new this(o.degree);
   }
 
   metamorphose(input: Jimp) : Promise<Jimp> {
     return new Promise<Jimp>((resolve, reject) => {
-      input.blur(this.radius, (err, result) => {
+      input.rotate(this.degree, (err, result) => {
         if (err) reject(err);
         else resolve(result);
       });

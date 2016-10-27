@@ -8,14 +8,14 @@ async function uploadToS3(imageId:string, imageBody:Buffer) {
       Bucket: 'alchemist-image',
       Key: 'images/',
       Body: imageBody,
-    }, (err, data) => {
+    }, {}, (err, data) => {
       if (err) reject(err);
       else resolve(data);
     });
   });
 }
 
-export default (event, context, cb) => {
+export default (event: any, context: any, cb: any) => {
   // console.log(event);
   cb(null, event);
   // uploadToS3("test-id", event.body.image)

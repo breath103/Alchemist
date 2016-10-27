@@ -6,7 +6,7 @@ export default class Compound extends Metamorphosis {
     super();
   }
 
-  static fromJSON(o) {
+  static fromJSON(o: any) {
     return new this(o.metamorphosisSequnece);
   }
 

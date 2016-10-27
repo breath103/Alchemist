@@ -9,7 +9,7 @@ export default class Crop extends Metamorphosis {
     super();
   }
 
-  static fromJSON(o) {
+  static fromJSON(o: any) {
     return new this(o.x, o.y, o.width, o.height);
   }
 

@@ -16,9 +16,13 @@ service: alchemist
 provider:
   name: aws
   runtime: nodejs4.3
-  stage: dev
+  stage: prod
   region: us-east-1
   profile: alchemist
+
+# you can overwrite defaults here
+#  stage: dev
+#  region: us-east-1
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -37,32 +41,15 @@ provider:
 
 # you can add packaging information here
 package:
- # include:
- #   - include-me.js
- # exclude:
- #   - exclude-me.js
- artifact: dst.zip
+  artifact: dst.zip
 
 functions:
-  metamorphosis:
-    handler: lambda_handlers/metamorphose.default
+  hello:
+    handler: handlers.hello
     events:
       - http:
-          path: metamorphose
+          path: hello
           method: get
-          integration: lambda
-  upload:
-    handler: lambda_handlers/upload.default
-    events:
-      - http:
-          path: upload
-          method: post
-          integration: lambda
-          request:
-            template:
-              multipart/form-data: '{ "body" : "\"$input.body\"" }'
-
-#    you can add any of the following events
 #    events:
 #      - http:
 #          path: users/create
@@ -70,6 +57,7 @@ functions:
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
 #      - sns: greeter-topic
+#      - stream: arn:aws:dynamodb:region:XXXXXX:table/foo/stream/1970-01-01T00:00:00.000
 
 # you can add CloudFormation resource templates here
 #resources:

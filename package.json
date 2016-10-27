@@ -1,24 +1,33 @@
 {
-  "name": "kurt_lee",
-  "version": "0.0.1",
-  "description": "Serverless On-demand Image Transform Tool",
+  "name": "alchemist",
+  "version": "1.0.0",
+  "description": "Template for microservice using lambda / typescript / serverless",
   "main": "index.js",
-  "dependencies": {
-    "aws-sdk": "^2.6.7",
-    "jimp": "^0.2.27"
-  },
-  "devDependencies": {
-    "typescript": "^2.0.3",
-    "serverless": "^1.0.0-rc.2"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node scripts/build.js",
-    "pack": "node scripts/pack.js",
-    "deploy:prod": "npm run build && npm run pack && sls deploy -v",
-    "start": "rm -rf ./dst && cp -r ./src ./dst && tsc && cd dst && node index.js",
-    "postinstall": "typings install"
+    "build": "rm -Rf dst && tsc",
+    "pack": "rm -f dst.zip && cp package.json dst/package.json && cd dst && npm install --cache=./.npm --production && zip -r ../dst.zip . ** && cd ..",
+    "pretest": "rm -Rf dst && tsc -p ./tsconfig.test.json",
+    "test": "mocha dst/**/__test__/**/*.js",
+    "invoke": "npm run build && node scripts/invoke.js",
+    "deploy": "npm run build && npm run pack && serverless deploy"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Kurt Lee",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^3.4.34",
+    "@types/chai-as-promised": "0.0.29",
+    "@types/mocha": "^2.2.32",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "mocha": "^3.1.2",
+    "optimist": "^0.6.1",
+    "serverless": "^1.0.3",
+    "ts-node": "^1.6.0",
+    "typescript": "^2.0.6"
+  },
+  "dependencies": {
+    "@types/aws-sdk": "0.0.39",
+    "aws-sdk": "^2.6.12",
+    "jimp": "^0.2.27"
+  }
 }
