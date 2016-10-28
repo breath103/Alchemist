@@ -3,18 +3,22 @@
   "version": "0.0.1",
   "description": "Serverless On-demand Image Transform Tool",
   "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "typings install",
+    "start": "tsc && node dst/index.js",
+    "build": "rm -Rf dst && tsc",
+    "pack": "rm -f dst.zip && cp package.json dst/package.json && cd dst && npm install --cache=./.npm --production && zip -r ../dst.zip . ** && cd ..",
+    "deploy": "npm run build && npm run pack && serverless deploy"
+  },
   "dependencies": {
     "aws-sdk": "^2.6.6",
     "jimp": "^0.2.27",
     "serverless": "^1.0.0-rc.2"
   },
+  
   "devDependencies": {
     "typescript": "^2.0.3"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && node dst/index.js",
-    "postinstall": "typings install"
   },
   "author": "",
   "license": "ISC"

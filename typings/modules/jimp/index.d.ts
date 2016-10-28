@@ -105,13 +105,13 @@ class Jimp {
     static PNG_FILTER_UP: number;
     static PNG_FILTER_AVERAGE: number;
     static PNG_FILTER_PAETH: number;
-
+    
     static RESIZE_NEAREST_NEIGHBOR: string;
     static RESIZE_BILINEAR: string;
     static RESIZE_BICUBIC: string;
     static RESIZE_HERMITE: string;
     static RESIZE_BEZIER: string;
-
+    
     //#endregion
 
     //#region Helpers
@@ -820,7 +820,7 @@ class Jimp {
      * @param cb - A callback for when complete.
      */
     scale(f: number, cb: Jimp.Callback<Jimp>): any;
-
+    
     /**
      * Uniformly scales the image by a factor.
      * @param f - The width to resize the image to.
