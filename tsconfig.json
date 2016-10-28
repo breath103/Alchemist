@@ -21,6 +21,9 @@
         "typings/browser",
         "typings/browser.d.ts"
     ],
+    "include": [
+      "src/**/*"
+    ],
     "compileOnSave": true,
     "buildOnSave": false,
     "atom": {
