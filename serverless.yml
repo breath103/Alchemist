@@ -44,11 +44,11 @@ package:
   artifact: dst.zip
 
 functions:
-  hello:
-    handler: handlers.hello
+  metamorphose:
+    handler: handlers.metamorphose
     events:
       - http:
-          path: hello
+          path: metamorphose
           method: get
 #    events:
 #      - http:

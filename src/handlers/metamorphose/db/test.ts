@@ -1,4 +1,4 @@
-{
+export = {
     "class": "Resize",
     "properties": {
         "width": 200,

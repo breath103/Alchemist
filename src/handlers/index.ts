@@ -1,7 +1,7 @@
 import hello from './hello';
-import metamorpohse from './metamorphose';
+import metamorphose from './metamorphose';
 
 export {
   hello,
-  metamorpohse,
+  metamorphose,
 };

@@ -31,7 +31,7 @@ export default function (event: any, context: Context) {
   const imageId = 'test-id'
   engine.metamorphose(
     imageId,
-    require('../db/test.json')
+    require('./db/test')
   ).then(result => {
     result.getBuffer(Jimp.MIME_JPEG, (err, buffer) => {
       context.done(null, {
