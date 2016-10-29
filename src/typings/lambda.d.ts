@@ -26,10 +26,8 @@ interface Context {
     fail(error?: Error): void;
     done(error?: Error, result?: {
       statusCode: number;
-      headers: {
-        'Content-Type': string
-      };
-      body: string;
+      headers: { [key: string]: string; };
+      body?: string;
     }): void; // result must be JSON.stringifyable
     getRemainingTimeInMillis(): number;
 }

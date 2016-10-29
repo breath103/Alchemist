@@ -2,44 +2,58 @@ import { loadMetamorphosis } from './metamorphosis';
 import ImageHelper from './image_helper';
 
 class Engine {
-  private imageS3Bucket: string;
-  private imageS3Prefix: string;
+  constructor(
+    private imageS3Bucket: string,
+    private imageS3Prefix: string
+  ) {}
 
-  constructor() {
-    this.imageS3Bucket = 'alchemist-image';
-    this.imageS3Prefix = 'images/';
-  }
-
-  async metamorphose(imageId: string, metamorphosisRecipe: any) {
+  /** returns https path for image */
+  async metamorphose(imageId: string, recipeName: string, recipe: any) : Promise<string> {
     const image = await ImageHelper.readJimpFromS3({
       Bucket: this.imageS3Bucket,
       Key: `${this.imageS3Prefix}${imageId}`
     });
 
-    const metamorphosis = loadMetamorphosis(metamorphosisRecipe);
+    const metamorphosis = loadMetamorphosis(recipe);
 
     const result = await metamorphosis.metamorphose(image);
-    return result;
+    const uploadToS3 = await ImageHelper.writeJimpToS3(result, {
+      Bucket: this.imageS3Bucket,
+      Key: `${this.imageS3Prefix}${imageId}/${recipeName}`
+    });
+
+    return `https://s3.amazonaws.com/${this.imageS3Bucket}/images/${imageId}/${recipeName}`;
   }
 };
 
-const engine = new Engine();
-
 import * as Jimp from 'jimp';
 
+const engine = new Engine('alchemist-images', 'images/');
+
+async function metamorphose(imageId: string) {
+  const recipeName = 'test';
+  const recipe = {
+    "class": "Resize",
+    "properties": {
+      "width": 200,
+      "height": 200
+    }
+  };
+
+  return await engine.metamorphose(imageId, recipeName, recipe);
+}
+
 export default function (event: any, context: Context) {
-  const imageId = 'test-id'
-  engine.metamorphose(
-    imageId,
-    require('./db/test')
-  ).then(result => {
-    result.getBuffer(Jimp.MIME_JPEG, (err, buffer) => {
-      context.done(null, {
-        statusCode: 200,
-        headers: { 'Content-Type': 'image/jpeg' },
-        body: buffer.toString('utf8'),
-      });
-    })
+  const imageId = 'Lea_Seydoux.jpg'
+
+  metamorphose(imageId).then((result) => {
+    context.done(null, {
+      statusCode: 302,
+      headers: {
+        'Content-Type': 'image/jpeg',
+        'Location': result,
+      }
+    });
   }).catch(e => {
     context.done(e, null);
   })

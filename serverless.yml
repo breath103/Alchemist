@@ -19,6 +19,11 @@ provider:
   stage: prod
   region: us-east-1
   profile: alchemist
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:*"
+      Resource: "*"
 
 # you can overwrite defaults here
 #  stage: dev
