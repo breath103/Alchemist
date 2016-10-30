@@ -7,13 +7,8 @@ export default class ImageHelper {
   static readJimpFromS3(options: { Bucket: string, Key: string }) : Promise<Jimp> {
     return new Promise((resolve, reject) => {
       s3.getObject(options, (err, data) => {
-        if (err) {
-          console.log(options);
-          console.error(err);
-          reject(err);
-        } else {
-          resolve(data.Body);
-        }
+        if (err) reject(err);
+        else resolve(data.Body);
       });
     }).then((buffer: Buffer) => {
       return new Promise((resolve, reject) => {

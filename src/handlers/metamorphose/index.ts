@@ -8,7 +8,7 @@ class Engine {
   ) {}
 
   /** returns https path for image */
-  async metamorphose(imageId: string, recipeName: string, recipe: any) : Promise<string> {
+  async metamorphose(imageId: string, recipeName: string, recipe: any) {
     const image = await ImageHelper.readJimpFromS3({
       Bucket: this.imageS3Bucket,
       Key: `${this.imageS3Prefix}${imageId}`
