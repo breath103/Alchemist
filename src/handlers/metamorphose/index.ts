@@ -16,15 +16,16 @@ class Engine {
 
     const metamorphosis = loadMetamorphosis(recipe);
 
-    const result = await metamorphosis.metamorphose(image);
-    const uploadToS3 = await ImageHelper.writeJimpToS3(result, {
-      Bucket: this.imageS3Bucket,
-      Key: `${this.imageS3Prefix}${imageId}/${recipeName}`
-    });
+    const metamorphosedImage = await metamorphosis.metamorphose(image);
 
-    return `https://s3.amazonaws.com/${this.imageS3Bucket}/images/${imageId}/${recipeName}`;
+    // const uploadToS3 = await ImageHelper.writeJimpToS3(metamorphosedImage, {
+    //   Bucket: this.imageS3Bucket,
+    //   Key: `${this.imageS3Prefix}${imageId}/${recipeName}`
+    // });
+
+    return metamorphosedImage;
   }
-};
+}
 
 import * as Jimp from 'jimp';
 
@@ -46,15 +47,19 @@ async function metamorphose(imageId: string) {
 export default function (event: any, context: Context) {
   const imageId = 'Lea_Seydoux.jpg'
 
-  metamorphose(imageId).then((result) => {
-    context.done(null, {
-      statusCode: 302,
-      headers: {
-        'Content-Type': 'image/jpeg',
-        'Location': result,
-      }
-    });
-  }).catch(e => {
-    context.done(e, null);
-  })
+  metamorphose(imageId)
+    .then((image) => {
+      const mimeType = Jimp.MIME_PNG;
+      image.getBuffer(mimeType, (err, buffer) => {
+        context.done(err, {
+          statusCode: 200,
+          headers: {
+            'Content-Type': mimeType,
+          },
+          body: buffer.toString('base64')
+        });
+      })
+    }).catch(e => {
+      context.done(e, null);
+    })
 };

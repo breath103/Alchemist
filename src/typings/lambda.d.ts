@@ -27,7 +27,7 @@ interface Context {
     done(error?: Error, result?: {
       statusCode: number;
       headers: { [key: string]: string; };
-      body?: string;
+      body?: string | Buffer;
     }): void; // result must be JSON.stringifyable
     getRemainingTimeInMillis(): number;
 }
