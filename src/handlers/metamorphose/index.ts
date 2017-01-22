@@ -1,3 +1,6 @@
+import * as fs from 'fs';
+import * as LambdaProxy from '../../interfaces/lambda-proxy';
+
 import { loadMetamorphosis } from './metamorphosis';
 import ImageHelper from './image_helper';
 
@@ -44,22 +47,23 @@ async function metamorphose(imageId: string) {
   return await engine.metamorphose(imageId, recipeName, recipe);
 }
 
-export default function (event: any, context: Context) {
+export default async function (event: LambdaProxy.Event, context: LambdaProxy.Context) {
   const imageId = 'Lea_Seydoux.jpg'
+  const image = await metamorphose(imageId);
+  const mimeType = Jimp.MIME_PNG;
+  const buffer = await new Promise<Buffer>((resolve, reject) => {
+    image.getBuffer(mimeType, (err, buffer) => {
+      if (err) reject(err);
+      else resolve(buffer);
+    });
+  });
 
-  metamorphose(imageId)
-    .then((image) => {
-      const mimeType = Jimp.MIME_PNG;
-      image.getBuffer(mimeType, (err, buffer) => {
-        context.done(err, {
-          statusCode: 200,
-          headers: {
-            'Content-Type': mimeType,
-          },
-          body: buffer.toString('base64')
-        });
-      })
-    }).catch(e => {
-      context.done(e, null);
-    })
+  return {
+    statusCode: 200,
+    headers: {
+      'Content-Type': mimeType,
+    },
+    body: buffer.toString('base64'),
+    isBase64Encoded: true,
+  };
 };

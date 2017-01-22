@@ -1,5 +1,9 @@
+import HandlerWrapper from './handler_wrapper';
+
 import metamorphose from './metamorphose';
 
-export {
-  metamorphose,
+const handlers = {
+  metamorphose: HandlerWrapper.safelyWrap(metamorphose),
 };
+
+export = handlers;

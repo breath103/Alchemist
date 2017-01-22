@@ -1,3 +1,9 @@
+// Event
+export interface Event {}
+export interface Response {}
+
+// Context
+
 // Type definitions for AWS Lambda
 // Definitions by: James Darbyshire (http://darb.io)
 
@@ -9,7 +15,7 @@
 
 // Context
 // http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-context.html
-interface Context {
+export interface Context<T> {
     // Properties
     functionName: string;
     functionVersion: string;
@@ -23,12 +29,8 @@ interface Context {
 
     // Functions
     succeed(result?: Object): void;
-    fail(error?: Error): void;
-    done(error?: Error, result?: {
-      statusCode: number;
-      headers: { [key: string]: string; };
-      body?: string | Buffer;
-    }): void; // result must be JSON.stringifyable
+    fail(error: Error): void;
+    done(error: Error | null, result?: T): void; // result must be JSON.stringifyable
     getRemainingTimeInMillis(): number;
 }
 
