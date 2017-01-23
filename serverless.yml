@@ -25,3 +25,10 @@ functions:
       - http:
           path: metamorphose/{proxy+}
           method: get
+
+  api:
+    handler: handlers.api
+    events:
+      - http:
+          path: api/{proxy+}
+          method: any

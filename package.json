@@ -77,7 +77,9 @@
   },
   "dependencies": {
     "@types/aws-sdk": "0.0.39",
+    "@types/universal-router": "0.0.2",
     "aws-sdk": "^2.6.12",
-    "jimp": "^0.2.27"
+    "jimp": "^0.2.27",
+    "universal-router": "^2.0.0"
   }
 }
